@@ -51,7 +51,8 @@ while($true)
 		$Msg =  ' Your account will be logged out in 5 minutes. Close all games, videos and music!'
 		$User = $ACTIVEUSERS[$ACCNM]
 
-		##SET THE PRINCIPAL SO THAT THE MESSAGE IS ONLY TRIGGERED IF THE USER IS LOGGED ON
+		##SET THE PRINCIPAL SO THAT THE TASKS ARE ONLY TRIGGERED IF THE USER IS LOGGED ON
+		##IF NOT LOGGED ON THE TIME RESTRICTIONS WILL BLOCK LOGIN AND THERE'S NO NEED FOR THE TASKS
 		$Principal = New-ScheduledTaskPrincipal -LogonType Interactive -UserId $User
 
 		##DEFINE THE USER THAT RUNS THE TASK (NO NEED TO CHANGE THIS)
