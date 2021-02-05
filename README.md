@@ -9,6 +9,6 @@ This script let's you set the allowed login times per day (for example M,07-21 =
 
 Running the script again it will remove the old scheduled tasks and login restriction times, and recreate them with the new time limits.
 
-So add the restriction on line 3, set the desired notify message on line 51 and optionally set the base names for the tasks to be created on lines 69 and 70 (if both tasks are named the same, the script will produce bull). Run the script as admin from powershell with: .\kidcontrol.ps1.
+So add the restriction on line 3 (ON THE DAYS THAT LOGIN IS NOT ALLOWED AT ALL USE 0 (ZERO)), set the desired notify message on line 51 and optionally set the base names for the tasks to be created on lines 69 and 70 (if both tasks are named the same, the script will produce bull). Run the script as admin from powershell with: .\kidcontrol.ps1.
 
 Caveats: only one time window per day is possible and only restrict by full hours, so doesn't understand minutes.
