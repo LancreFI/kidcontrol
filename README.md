@@ -5,7 +5,7 @@ Noticed that you can specify allowed login hours for a local user in Windows 10 
 
 Sure there might've been options if you would create an MS account, which I would never do, so options for limiting local user accounts seemed a bit limited or sketchy.
 
-This script let's you set the allowed login times per day (for example M,07-21 = Monday fron 07:00 to 21:00), apply them all at once on the chosen user account, create a scheduled task to notify the user through msg.exe when 5 minutes of screen time remain and then automatically lock the screen when the time limit is reached via another automatically created task, this way preventing the user from logging in until the next allowed data/time.
+This script let's you set the allowed login times per day (for example M,07-21 = Monday from 07:00 to 21:00), apply them all at once on the chosen user account, create a scheduled task to notify the user through msg.exe when 5 minutes of screen time remain and then automatically lock the screen when the time limit is reached via another automatically created task, this way preventing the user from logging in until the next allowed date/time.
 
 Running the script again it will remove the old scheduled tasks and login restriction times, and recreate them with the new time limits.
 
