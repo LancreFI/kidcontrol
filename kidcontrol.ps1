@@ -1,6 +1,6 @@
 ##SET THE HOURS BETWEEN WHICH THE USER CAN LOG IN, SET 0 TO DISABLE LOGING IN ON THAT DAY
 ##             SUN      MON     TUE   WED     THU    FRI     SAT
-$TIMEFRAME = '07-22','18-20','18-20','12-15','12-22','12-24','07-24'
+$TIMEFRAME = '07-22','0','18-20','0','12-22','12-24','07-24'
 $DAYNAMES =  'Su,',  'M,',    'T,',   'W,',   'Th,','F,',  'Sa,'
 
 ##GET TIME/DATE AT THE MOMENT
