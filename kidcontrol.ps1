@@ -146,6 +146,6 @@ $LIMITUSR$LIMIT
 	{
         	Write-Warning "Bad option! Please try again."
 	}
-  #CLEAR CONSOLE AND START AGAIN IF A BAD OPTION WAS PROVIDED
+  	#CLEAR CONSOLE AND START AGAIN IF A BAD OPTION WAS PROVIDED
 	Start-Sleep -Seconds 2
 }
