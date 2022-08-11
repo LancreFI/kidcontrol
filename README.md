@@ -60,7 +60,7 @@ If the running task does not end when requested, force it to stop
 
 .forward is a file which redirects emails designated to me in my hosting environment through some special 
 email alias that gets redirected, to timeparser.sh shell script that will parse the time limits from the email 
-and save them on my server.
+and save them on my server. Should reside in your hosting root.
 
 --
 
