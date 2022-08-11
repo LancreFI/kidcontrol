@@ -1,0 +1,66 @@
+$UNIXTIME=[int](Get-Date -UFormat %s)
+
+##TEST IF A TIMELIMIT FILE EXISTS
+$TLIMITFILE=$PSScriptRoot + "\kidLimits"
+If( Test-Path -Path $TLIMITFILE )
+{
+	$LIMITCONTENT=Get-Content -Path $TLIMITFILE
+	$OLDVER=$LIMITCONTENT[0]
+	$OLDTIMEFRAMES=$LIMITCONTENT[1]
+}
+
+##DEFINE THE DOMAIN WHERE THE LIMIT FILES RESIDE
+$SOURCEDOMAIN = "mydoma.in"
+
+##GET DEVICE ID TO USE AS AN IDENTIFIER
+Try
+{
+	$DEVID=(get-itemproperty -path HKLM:\SOFTWARE\Microsoft\SQMClient -Name MachineID).MachineID.Substring(1,8)
+}
+Catch
+{
+	$DEVID="ERR"
+}
+
+##IF NETWORK CONNECTION IS AVAILABLE, A DEVICE ID WAS OBTAINABLE AND THE SOURCEDOMAIN RESPONDS TO PING
+if((ping $SOURCEDOMAIN -n 1 -w 5 | Select -Index 2) -and ("$DEVID" -ne "ERR"))
+{
+	##THE FULL ADDRESS FOR THE FILE
+	$LIMITURL="http://$SOURCEDOMAIN/limits_$DEVID"
+
+	##GET THE ONLINE LIMITS FILE, WHICH IS IN THE FORMAT OF limits_deviceID
+	##CATCH 404 OR OTHER ERRORS
+	Try
+	{
+		$ONLINELIMITS = Invoke-WebRequest "$LIMITURL" -UseBasicParsing
+		$URICOMP=$ONLINELIMITS.BaseResponse.ResponseUri.AbsoluteUri
+	}
+	Catch
+	{
+#		Write-Host "No limits to update!"
+	}
+
+	##CHECK POSSIBLE ERRORDOCUMENT REDIRECTS THAT CATCH EVERY REQUEST
+	##IF THE AbsoluteUri IS THE SAME AS THE TIME LIMIT FILE'S FULL ADDRESS
+	if("$URICOMP" -eq "$LIMITURL")
+	{
+		##GET ONLINE TIMELIMITS
+		$NEWVER=($ONLINELIMITS -Split '[\r\n]') |? {$_}|Select -Index 0
+		$NEWTIMEFRAMES=($ONLINELIMITS -Split '[\r\n]') | ? {$_} | Select -Index 1
+
+		##IF THE NEW LIMITFILE VERSION IS GREATER THAN THE OLD ONE
+		if($NEWVER -gt $OLDVER)
+		{
+			##WRITE THE NEW TIMEFRAMES TO FILE
+			"$NEWVER `n $NEWTIMEFRAMES" | Out-File -FilePath $TLIMITFILE
+
+			##RUN THE TIMELIMIT UPDATE SCRIPT (PS VERSIONS 3.0>)
+			& "$PSScriptRoot\kidControl.ps1"
+		}
+	}
+} 
+else
+{
+	Write-Host "NO INTERWEBZ OR HOST UNREACHABLE!"
+	Write-Host "THE OLD LIMITS STAND!"
+}
