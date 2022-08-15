@@ -41,6 +41,7 @@ Location: \
 Author: youradminaccount
 Description: Poll for new time limits for kidControl
 Run whether user is logged on or not
+Run with highest privileges
 
 Triggers --> New: 
 Begin the task: On a schedule
