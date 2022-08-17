@@ -80,6 +80,7 @@ function errorHandler()
                                 LIMITS+="${limit},"
                         done
                         printf "$(date +%s)\n${LIMITS}"|sed 's/,$//' > "${LIMITBASE}${USERS[${kid}]}"
+                        chmod 644 "${LIMITBASE}${USERS[${kid}]}"
                         echo "$(date +%y%m%d_%H%M%S) [SUCCESS] New limits ${LIMITS} for ${kid} were succesfully written to ${LIMITBASE}${USERS[${kid}]}" | sed 's/, for/ for/' >> "${KCLOG}"
                         echo " -New limits for ${kid}: ${LIMITS}"|sed 's/,$//' >> "${MESSAGE}"
                         printf "  '--> Written to file: ${LIMITBASE}${USERS[${kid}]}\n\n" >> "${MESSAGE}"
