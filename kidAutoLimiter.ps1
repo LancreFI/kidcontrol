@@ -1,4 +1,4 @@
-$UNIXTIME=[int](Get-Date -UFormat %s)
+$UNIXTIME=[int](Get-Date -UFormat %s).split(([cultureinfo]::CurrentCulture.NumberFormat.NumberDecimalSeparator))[0]
 
 ##TEST IF A TIMELIMIT FILE EXISTS
 $TLIMITFILE=$PSScriptRoot + "\kidLimits"
