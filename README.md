@@ -87,15 +87,14 @@ Line28: define the sender name
   
 msg.exe.files are needed if you want the message to be sent to the user 5 minutes prior to auto-lockdown.
 msg.exe needs to be placed under windows/system32
-msg.exe.mui needs to be placed under windows/en-us, which might need a bit of trickery to be able to actually copy
+msg.exe.mui needs to be placed under windows/system32/en-us, which might need a bit of trickery to be able to actually copy
 the file over. Temporarily change the ownership of the folder, if it's owned by TrustedInstaller, to your admin
 user account, but when offered or given error of changing the ownership of subfolder/files, just cancel it as you
 only need the temporary ownership of the folder to be able to upload files, not the subfiles or folders. After this 
 you can as the owner change the folder permissions, so give Administrators or just your own account temporarily full 
-control, make sure you again cancel the permission change to subfolders/files. Now you can copy over the .mui, change 
-it's ownership to TrustedInstaller (NT Service\TrustedInstaller). Then revert your permission back to read+execute+list 
-for the en-us folder, change the ownership back to TrustedInstaller (NT Service\TrustedInstaller) and you should have 
-working msg.exe
+control, make sure you again cancel the permission change to subfolders/files. copy over the .mui, then revert your 
+permissions back to read+execute for the .mui and read+execute+list for the en-us folder and  change the ownership 
+back to TrustedInstaller (NT Service\TrustedInstaller) for both and you should have a working msg.exe.
 Tested on Win11.
 
 --  
