@@ -47,12 +47,10 @@ for ($index2 = 0; $index2 -lt $TIMEFRAME.count; $index2++)
 
 		##GET THE ENDING HOUR
 		$SCHTIME=$TIMEFRAME[$index2] -replace '([0-9][0-9]-)([0-9][0-9])', '$2'
-		$LCKSCHTIME=$SCHTIME.toString()
 
 		##IF THE ENDING HOUR IS AT MIDNIGHT
 		if($SCHTIME -eq '00' -or $SCHTIME -eq '24')
 		{
-			$SCHTIME=$SCHTIME.toString()
 			$SCHTIME='23:55:00'
 			$MSGSCHTIME='23:55'
 			$LCKSCHTIME='23:59:59'
@@ -60,7 +58,19 @@ for ($index2 = 0; $index2 -lt $TIMEFRAME.count; $index2++)
 		else
 		{
 			$LCKSCHTIME=$SCHTIME.toString()+':00'
-			$SCHTIME=$SCHTIME-1
+   			#TO MAKE SURE THE HOURS HAVE DOUBLE DIGITS EVEN WHEN NUMBERS ARE < 10
+			if($SCHTIME[0] -eq '0')
+			{
+				$SCHTIME='0'+($SCHTIME[1].toString()-1)
+			}
+			elseIf($SCHTIME -eq '10')
+			{
+				$SCHTIME='0'+($SCHTIME.toString()-1)
+			}
+			else
+			{
+				$SCHTIME=$SCHTIME-1
+			}
 			$MSGSCHTIME=$SCHTIME.toString()+':55'
 			$SCHTIME=$SCHTIME.toString()+':55:00'
 		}
